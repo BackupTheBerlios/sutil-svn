@@ -3,19 +3,6 @@
 <glade-interface>
     <widget class="GtkUIManager" id="uimanager">
         <child>
-            <widget class="GtkActionGroup" id="Extras">
-                <child>
-                    <widget class="GtkAction" id="ExportSRT">
-                        <property name="name">ExportSRT</property>
-                        <property name="label" translatable="yes">E_xport</property>
-                        <property name="tooltip" translatable="yes">asdfasdf</property>
-                        <property name="stock_id">gtk-convert</property>
-                        <signal handler="cb_export_to_srt" name="activate"/>
-                    </widget>
-                </child>
-            </widget>
-        </child>
-        <child>
             <widget class="GtkActionGroup" id="DefaultActions">
                 <child>
                     <widget class="GtkAction" id="Copy">
@@ -40,12 +27,13 @@
                 <child>
                     <widget class="GtkAction" id="FileMenu">
                         <property name="name">FileMenu</property>
-                        <property name="label" translatable="yes">_File</property>
+                        <property name="label" translatable="yes">A_rchivo</property>
                     </widget>
                 </child>
                 <child>
                     <widget class="GtkAction" id="New">
                         <property name="name">New</property>
+                        <property name="label" translatable="yes">_Nuevo proyecto</property>
                         <property name="tooltip" translatable="yes">Create a new file</property>
                         <property name="stock_id">gtk-new</property>
                         <signal handler="cb_file_new" name="activate"/>
@@ -54,7 +42,8 @@
                 <child>
                     <widget class="GtkAction" id="Open">
                         <property name="name">Open</property>
-                        <property name="tooltip" translatable="yes">Open a file</property>
+                        <property name="label" translatable="yes">_Abrir proyecto</property>
+                        <property name="tooltip" translatable="yes">Abrir fichero SML</property>
                         <property name="stock_id">gtk-open</property>
                         <signal handler="cb_file_open" name="activate"/>
                     </widget>
@@ -89,6 +78,19 @@
                         <property name="tooltip" translatable="yes">Save with a different name</property>
                         <property name="stock_id">gtk-save-as</property>
                         <signal handler="cb_save_as" name="activate"/>
+                    </widget>
+                </child>
+            </widget>
+        </child>
+        <child>
+            <widget class="GtkActionGroup" id="Extras">
+                <child>
+                    <widget class="GtkAction" id="ExportSRT">
+                        <property name="name">ExportSRT</property>
+                        <property name="label" translatable="yes">E_xportar a SRT</property>
+                        <property name="tooltip" translatable="yes">Exportar al formato SRT habitual</property>
+                        <property name="stock_id">gtk-convert</property>
+                        <signal handler="cb_export_to_srt" name="activate"/>
                     </widget>
                 </child>
             </widget>

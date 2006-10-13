@@ -42,7 +42,7 @@ class Line:
               try:
                      return """%i
 %s --> %s
-%s\n\n""" % (self.number, self.stime, self.etime,self.translation)
+%s\n\n""" % (self.number, self.stime, self.etime,self.get_translation())
               except UnicodeDecodeError,e:
                      print e
 
@@ -51,6 +51,12 @@ class Line:
 
        def set_translation(self, trans):
               self.translation = trans
+
+       def get_translation(self):
+              if ( not self.translation ):
+                     return "* " + self.get_text()
+              else:
+                     return self.translation
 
 
 class Movie:

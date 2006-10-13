@@ -57,7 +57,8 @@ class Controller:
         return file
 
     def initialization_at_load(self, loadedFile):
-        wt.get_widget('window1').set_title("Sutil - " + self.pretty_title(loadedFile))
+        wt.get_widget('window1').set_title("Sutil - "
+                                           + self.pretty_title(loadedFile))
         total = len(self.movie.lines)
         wt.get_widget('spinCurrentLine').set_range(1,total)
         wt.get_widget('labelLinesNumber').set_text('de ' + str(total))
@@ -91,10 +92,11 @@ class Controller:
             self.outputFilename = dialog.get_filename()
             self.write_to_file(dialog.get_filename(),
                                self.movie.serialize_to_xml())
+            dialog.destroy()
             return True
         else:
+            dialog.destroy()
             return False
-        dialog.destroy()
 
     def save_project(self):
         if ( self.check_unsaved_changes()):
@@ -266,6 +268,7 @@ class Callbacks:
 
 
     def cb_save_as(self):
+        controller.store_current_translation()
         controller.save_project_as()
 
     def cb_save(self):
@@ -279,18 +282,12 @@ class Callbacks:
     def cb_back_button(self):
         controller.previous()
 
-    def cb_skip_button(self):
-        controller.next()
-
     def cb_spin_change(self):
         newValue = wt.get_widget('spinCurrentLine').get_value_as_int()
         controller.go_to(newValue)
 
     def cb_export_to_srt(self):
         controller.export_to_srt()
-
-def cb_export_to_srt(*args):
-    controller.export_to_srt()
 
 if __name__ == '__main__':
     wt.get_widget('window1').show_all()
