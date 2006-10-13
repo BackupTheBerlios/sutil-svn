@@ -1,0 +1,365 @@
+<?xml version="1.0" standalone="no"?> <!--*- mode: xml -*-->
+<!DOCTYPE glade-interface SYSTEM "http://gazpacho.sicem.biz/gazpacho-0.1.dtd">
+<glade-interface>
+    <widget class="GtkUIManager" id="uimanager">
+        <child>
+            <widget class="GtkActionGroup" id="Extras">
+                <child>
+                    <widget class="GtkAction" id="ExportSRT">
+                        <property name="name">ExportSRT</property>
+                        <property name="label" translatable="yes">E_xport</property>
+                        <property name="tooltip" translatable="yes">asdfasdf</property>
+                        <property name="stock_id">gtk-convert</property>
+                        <signal handler="cb_export_to_srt" name="activate"/>
+                    </widget>
+                </child>
+            </widget>
+        </child>
+        <child>
+            <widget class="GtkActionGroup" id="DefaultActions">
+                <child>
+                    <widget class="GtkAction" id="Copy">
+                        <property name="name">Copy</property>
+                        <property name="tooltip" translatable="yes">Copy selected object into the clipboard</property>
+                        <property name="stock_id">gtk-copy</property>
+                    </widget>
+                </child>
+                <child>
+                    <widget class="GtkAction" id="Cut">
+                        <property name="name">Cut</property>
+                        <property name="tooltip" translatable="yes">Cut selected object into the clipboard</property>
+                        <property name="stock_id">gtk-cut</property>
+                    </widget>
+                </child>
+                <child>
+                    <widget class="GtkAction" id="EditMenu">
+                        <property name="name">EditMenu</property>
+                        <property name="label" translatable="yes">_Edit</property>
+                    </widget>
+                </child>
+                <child>
+                    <widget class="GtkAction" id="FileMenu">
+                        <property name="name">FileMenu</property>
+                        <property name="label" translatable="yes">_File</property>
+                    </widget>
+                </child>
+                <child>
+                    <widget class="GtkAction" id="New">
+                        <property name="name">New</property>
+                        <property name="tooltip" translatable="yes">Create a new file</property>
+                        <property name="stock_id">gtk-new</property>
+                        <signal handler="cb_file_new" name="activate"/>
+                    </widget>
+                </child>
+                <child>
+                    <widget class="GtkAction" id="Open">
+                        <property name="name">Open</property>
+                        <property name="tooltip" translatable="yes">Open a file</property>
+                        <property name="stock_id">gtk-open</property>
+                        <signal handler="cb_file_open" name="activate"/>
+                    </widget>
+                </child>
+                <child>
+                    <widget class="GtkAction" id="Paste">
+                        <property name="name">Paste</property>
+                        <property name="tooltip" translatable="yes">Paste object from the Clipboard</property>
+                        <property name="stock_id">gtk-paste</property>
+                    </widget>
+                </child>
+                <child>
+                    <widget class="GtkAction" id="Quit">
+                        <property name="name">Quit</property>
+                        <property name="tooltip" translatable="yes">Quit the program</property>
+                        <property name="stock_id">gtk-quit</property>
+                        <signal handler="cb_destroy" name="activate"/>
+                    </widget>
+                </child>
+                <child>
+                    <widget class="GtkAction" id="Save">
+                        <property name="name">Save</property>
+                        <property name="is_important">True</property>
+                        <property name="tooltip" translatable="yes">Save a file</property>
+                        <property name="stock_id">gtk-save</property>
+                        <signal handler="cb_save" name="activate"/>
+                    </widget>
+                </child>
+                <child>
+                    <widget class="GtkAction" id="SaveAs">
+                        <property name="name">SaveAs</property>
+                        <property name="tooltip" translatable="yes">Save with a different name</property>
+                        <property name="stock_id">gtk-save-as</property>
+                        <signal handler="cb_save_as" name="activate"/>
+                    </widget>
+                </child>
+            </widget>
+        </child>
+        <ui id="initial-state"><![CDATA[<ui>
+<menubar action="menubar1" name="menubar1">
+  <menu action="FileMenu" name="FileMenu">
+    <menuitem action="New" name="New"/>
+    <menuitem action="Open" name="Open"/>
+    <menuitem action="Save" name="Save"/>
+    <menuitem action="SaveAs" name="SaveAs"/>
+    <separator/>
+    <menuitem action="ExportSRT" name="ExportSRT"/>
+    <separator/>
+    <menuitem action="Quit" name="Quit"/>
+  </menu>
+  <menu action="EditMenu" name="EditMenu">
+    <menuitem action="Copy" name="Copy"/>
+    <menuitem action="Cut" name="Cut"/>
+    <menuitem action="Paste" name="Paste"/>
+  </menu>
+</menubar>
+</ui>]]></ui>
+    </widget>
+    <widget class="GtkWindow" id="window1">
+        <property name="default_height">377</property>
+        <property name="default_width">626</property>
+        <property name="title" context="yes" translatable="yes">Sutil</property>
+        <signal handler="cb_destroy" name="delete-event"/>
+        <child>
+            <widget class="GtkVBox" id="vbox1">
+                <property name="visible">True</property>
+                <child>
+                    <widget constructor="initial-state" class="GtkMenuBar" id="menubar1">
+                        <property name="visible">True</property>
+                    </widget>
+                    <packing>
+                        <property name="expand">False</property>
+                    </packing>
+                </child>
+                <child>
+                    <widget class="GtkHBox" id="hbox1">
+                        <property name="border_width">6</property>
+                        <property name="homogeneous">True</property>
+                        <property name="spacing">2</property>
+                        <property name="visible">True</property>
+                        <child>
+                            <widget class="GtkFrame" id="frame1">
+                                <property name="label" context="yes" translatable="yes">Original</property>
+                                <property name="label_xalign">0.0599999986589</property>
+                                <property name="shadow">etched-out</property>
+                                <property name="shadow_type">etched-out</property>
+                                <property name="visible">True</property>
+                                <child>
+                                    <widget class="GtkVBox" id="vbox2">
+                                        <property name="border_width">6</property>
+                                        <property name="spacing">24</property>
+                                        <property name="visible">True</property>
+                                        <child>
+                                            <widget class="GtkTextView" id="tvOriginal1">
+                                                <property name="cursor_visible">False</property>
+                                                <property name="editable">False</property>
+                                                <property name="justification">center</property>
+                                                <property name="sensitive">False</property>
+                                                <property name="visible">True</property>
+                                            </widget>
+                                            <packing>
+                                                <property name="padding">3</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <widget class="GtkHSeparator" id="hseparator1">
+                                                <property name="visible">True</property>
+                                            </widget>
+                                            <packing>
+                                                <property name="expand">False</property>
+                                                <property name="fill">False</property>
+                                                <property name="padding">4</property>
+                                                <property name="position">1</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <widget class="GtkTextView" id="tvOriginal2">
+                                                <property name="cursor_visible">False</property>
+                                                <property name="editable">False</property>
+                                                <property name="justification">center</property>
+                                                <property name="sensitive">False</property>
+                                                <property name="visible">True</property>
+                                            </widget>
+                                            <packing>
+                                                <property name="padding">3</property>
+                                                <property name="position">2</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <widget class="GtkHSeparator" id="hseparator2">
+                                                <property name="visible">True</property>
+                                            </widget>
+                                            <packing>
+                                                <property name="expand">False</property>
+                                                <property name="fill">False</property>
+                                                <property name="position">3</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <widget class="GtkTextView" id="tvOriginal3">
+                                                <property name="justification">center</property>
+                                                <property name="no_show_all">True</property>
+                                                <property name="sensitive">False</property>
+                                                <property name="visible">True</property>
+                                            </widget>
+                                            <packing>
+                                                <property name="padding">3</property>
+                                                <property name="position">4</property>
+                                            </packing>
+                                        </child>
+                                    </widget>
+                                </child>
+                            </widget>
+                            <packing>
+                                <property name="padding">3</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <widget class="GtkFrame" id="frame2">
+                                <property name="label" context="yes" translatable="yes">Traducción</property>
+                                <property name="label_xalign">0.0599999986589</property>
+                                <property name="shadow">etched-out</property>
+                                <property name="shadow_type">etched-out</property>
+                                <property name="visible">True</property>
+                                <child>
+                                    <widget class="GtkVBox" id="vbox3">
+                                        <property name="border_width">6</property>
+                                        <property name="spacing">24</property>
+                                        <property name="visible">True</property>
+                                        <child>
+                                            <widget class="GtkTextView" id="tvTranslation1">
+                                                <property name="cursor_visible">False</property>
+                                                <property name="editable">False</property>
+                                                <property name="justification">center</property>
+                                                <property name="sensitive">False</property>
+                                                <property name="visible">True</property>
+                                            </widget>
+                                            <packing>
+                                                <property name="padding">3</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <widget class="GtkHSeparator" id="hseparator3">
+                                                <property name="visible">True</property>
+                                            </widget>
+                                            <packing>
+                                                <property name="expand">False</property>
+                                                <property name="fill">False</property>
+                                                <property name="position">1</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <widget class="GtkTextView" id="tvTranslation2">
+                                                <property name="is_focus">True</property>
+                                                <property name="justification">center</property>
+                                                <property name="overwrite">True</property>
+                                                <property name="receives_default">True</property>
+                                                <property name="visible">True</property>
+                                                <property name="wrap_mode">word</property>
+                                            </widget>
+                                            <packing>
+                                                <property name="padding">3</property>
+                                                <property name="position">2</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <widget class="GtkHSeparator" id="hseparator4">
+                                                <property name="visible">True</property>
+                                            </widget>
+                                            <packing>
+                                                <property name="expand">False</property>
+                                                <property name="fill">False</property>
+                                                <property name="position">3</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <widget class="GtkTextView" id="tvTranslation3">
+                                                <property name="justification">center</property>
+                                                <property name="sensitive">False</property>
+                                                <property name="visible">True</property>
+                                            </widget>
+                                            <packing>
+                                                <property name="position">4</property>
+                                            </packing>
+                                        </child>
+                                    </widget>
+                                </child>
+                            </widget>
+                            <packing>
+                                <property name="padding">3</property>
+                                <property name="position">1</property>
+                            </packing>
+                        </child>
+                    </widget>
+                    <packing>
+                        <property name="padding">5</property>
+                        <property name="position">1</property>
+                    </packing>
+                </child>
+                <child>
+                    <widget class="GtkHBox" id="hbox2">
+                        <property name="border_width">6</property>
+                        <property name="spacing">2</property>
+                        <property name="visible">True</property>
+                        <child>
+                            <widget class="GtkSpinButton" id="spinCurrentLine">
+                                <property name="adjustment">1 0 100 1 10 0</property>
+                                <property name="max_length">4</property>
+                                <property name="text" context="yes" translatable="yes">1</property>
+                                <property name="visible">True</property>
+                                <signal handler="cb_spin_change" name="value-changed"/>
+                            </widget>
+                            <packing>
+                                <property name="expand">False</property>
+                                <property name="padding">6</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <widget class="GtkLabel" id="labelLinesNumber">
+                                <property name="visible">True</property>
+                                <property name="xalign">0.0</property>
+                            </widget>
+                            <packing>
+                                <property name="position">1</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <widget class="GtkHButtonBox" id="hbuttonbox1">
+                                <property name="homogeneous">True</property>
+                                <property name="spacing">6</property>
+                                <property name="visible">True</property>
+                                <child>
+                                    <widget class="GtkButton" id="button3">
+                                        <property name="label">gtk-media-previous</property>
+                                        <property name="use_stock">True</property>
+                                        <property name="visible">True</property>
+                                        <signal handler="cb_back_button" name="clicked"/>
+                                    </widget>
+                                </child>
+                                <child>
+                                    <widget class="GtkButton" id="button1">
+                                        <property name="label">gtk-media-next</property>
+                                        <property name="use_stock">True</property>
+                                        <property name="visible">True</property>
+                                        <signal handler="cb_next_button" name="clicked"/>
+                                    </widget>
+                                    <packing>
+                                        <property name="position">1</property>
+                                    </packing>
+                                </child>
+                            </widget>
+                            <packing>
+                                <property name="expand">False</property>
+                                <property name="padding">4</property>
+                                <property name="position">2</property>
+                            </packing>
+                        </child>
+                    </widget>
+                    <packing>
+                        <property name="expand">False</property>
+                        <property name="pack_type">end</property>
+                        <property name="position">2</property>
+                    </packing>
+                </child>
+            </widget>
+        </child>
+    </widget>
+</glade-interface>
