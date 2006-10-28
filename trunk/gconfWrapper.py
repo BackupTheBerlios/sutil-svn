@@ -74,6 +74,8 @@ class GConf:
 	    raise 'GConfError', 'key must not contain /'
 
 	value = self._gconf_client.get (self._domain + key)
+        if ( value == None):
+            return None
 	ValueType = value.type
 	if ValueType == VALUE_BOOL:
 	    return value.get_bool ()

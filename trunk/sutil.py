@@ -30,6 +30,8 @@ import gettext
 import pango
 from sys import argv
 
+from gconfWrapper import GConf, GConfWrapper
+
 import os.path
 import srtLoader
 from saveconfirm import SaveConfirmationAlert
@@ -37,6 +39,8 @@ from dialogProject import NewProjectDialog
 from gazpacho.loader.loader import ObjectBuilder
 
 wt = ObjectBuilder('ui-v1.xml')
+gconf = GConf('sutil')
+wrapper = GConfWrapper(gconf)
 
 class Controller:
 
@@ -92,6 +96,8 @@ class Controller:
         response = dialog.run()
         if response == gtk.RESPONSE_OK :
             self.outputFilename = dialog.get_filename()
+            gconf['currentFile'] = self.outputFilename
+            gconf['currentLine'] = self.counter
             self.write_to_file(dialog.get_filename(),
                                self.movie.serialize_to_xml())
             dialog.destroy()
@@ -106,6 +112,8 @@ class Controller:
                 if self.outputFilename :
                     self.write_to_file(self.outputFilename,
                                        self.movie.serialize_to_xml())
+                    gconf['currentFile'] = self.outputFilename
+                    gconf['currentLine'] = self.counter
                     return True
                 else:
                     return self.save_project_as()
@@ -132,6 +140,7 @@ class Controller:
 
 
     def load_movie(self, filename):
+        self.movie.set_movie_filename(filename)
         warning = gtk.MessageDialog(None, 0,
                                     gtk.MESSAGE_WARNING,
                                     gtk.BUTTONS_CLOSE,
@@ -248,6 +257,7 @@ class Callbacks:
             srtFile, movie = dialog.get_values()
             if ( srtFile ):
                 controller.load_srt_file(srtFile)
+                controller.first()
             if ( movie ):
                 controller.load_movie(movie)
         dialog.destroy()
@@ -298,4 +308,9 @@ if __name__ == '__main__':
     wt.get_widget('Save').set_sensitive(False)
     wt.get_widget('SaveAs').set_sensitive(False)
     wt.get_widget('ExportSRT').set_sensitive(False)
+
+    if ( gconf['currentFile'] ):
+        controller.load_sml_file(gconf['currentFile'])
+        controller.go_to(gconf['currentLine'])
+
     gtk.main()

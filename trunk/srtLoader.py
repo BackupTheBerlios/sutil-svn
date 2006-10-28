@@ -62,12 +62,17 @@ class Line:
 class Movie:
        def __init__(self):
               self.lines = []
+              self.movieFilename = ""
+
+       def set_movie_filename(self, filename):
+              self.movieFilename = filename
 
        def append_line(self, line):
               self.lines.append(line)
 
        def serialize_to_xml(self):
-              text =  "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<movie>\n"
+              text =  "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+              text += "<movie file=\"" + self.movieFilename + "\">"
               for line in self.lines:
                      text += line.serialize_to_xml()
               text += "</movie>"
