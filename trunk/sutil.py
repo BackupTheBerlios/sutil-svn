@@ -310,7 +310,8 @@ if __name__ == '__main__':
     wt.get_widget('ExportSRT').set_sensitive(False)
 
     if ( gconf['currentFile'] ):
-        controller.load_sml_file(gconf['currentFile'])
-        controller.go_to(gconf['currentLine'])
+        if ( os.path.exists(gconf['currentFile'])):
+            controller.load_sml_file(gconf['currentFile'])
+            controller.go_to(gconf['currentLine'])
 
     gtk.main()
