@@ -33,7 +33,7 @@ from sys import argv
 import os.path
 import srtLoader
 from saveconfirm import SaveConfirmationAlert
-
+from dialogProject import NewProjectDialog
 from gazpacho.loader.loader import ObjectBuilder
 
 wt = ObjectBuilder('ui-v1.xml')
@@ -54,6 +54,8 @@ class Controller:
 
     def pretty_title(self, filename):
         file = os.path.basename(filename)
+        if ( len(file) > 20 ):
+            return file[:25] + "..."
         return file
 
     def initialization_at_load(self, loadedFile):
@@ -127,7 +129,15 @@ class Controller:
             self.write_to_file(dialog.get_filename(),
                                self.movie.serialize_to_srt())
         dialog.destroy()
-        
+
+
+    def load_movie(self, filename):
+        warning = gtk.MessageDialog(None, 0,
+                                    gtk.MESSAGE_WARNING,
+                                    gtk.BUTTONS_CLOSE,
+                                    "Todavia no esta disponible la visualizacion de video")
+        warning.run()
+        warning.destroy()
 
     def write_to_file(self, outputFilename, content):
         output = open(outputFilename,'w')
@@ -232,22 +242,15 @@ class Callbacks:
             gtk.main_quit()
 
     def cb_file_new(self):
-        dialog = gtk.FileChooserDialog("Open..",
-                                       None,
-                                       gtk.FILE_CHOOSER_ACTION_OPEN,
-                                       (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-                                        gtk.STOCK_OPEN, gtk.RESPONSE_OK))
-        dialog.set_default_response(gtk.RESPONSE_OK)
-        filter = gtk.FileFilter()
-        filter.set_name("SRT subtitles")
-        filter.add_pattern("*.srt")
-        dialog.add_filter(filter)
+        dialog = NewProjectDialog()
         response = dialog.run()
-        if response == gtk.RESPONSE_OK :
-            controller.load_srt_file(dialog.get_filename())
-            controller.first()
+        if ( response == gtk.RESPONSE_OK ):
+            srtFile, movie = dialog.get_values()
+            if ( srtFile ):
+                controller.load_srt_file(srtFile)
+            if ( movie ):
+                controller.load_movie(movie)
         dialog.destroy()
-
 
     def cb_file_open(self):
         dialog = gtk.FileChooserDialog("Open..",
